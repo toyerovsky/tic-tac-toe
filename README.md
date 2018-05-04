@@ -1,1 +1,2 @@
-tic-tac-toe
+# Tic Tac Toe
+My implementation of tic tac toe game using Unity.
