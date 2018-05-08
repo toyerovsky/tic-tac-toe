@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Board
+﻿namespace Assets.Scripts.Enums
 {
     public enum MarkerType
     {

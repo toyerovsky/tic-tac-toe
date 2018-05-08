@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Board;
+using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class BoardController : MonoBehaviour
+    public class GameController : MonoBehaviour
     {
         public MarkerType CurrentMove;
         public List<Button> Buttons;
+        public GameObject GameOverOverlay;
+        public Text GameOverText;
 
         private int _rowAndColCount;
         private string[,] _currenMoves;
@@ -44,8 +46,7 @@ namespace Assets.Scripts
 
                         if (CheckForWin())
                         {
-                            //GameOver();
-                            Debug.Log("End");
+                            GameOver();
                             return;
                         }
 
@@ -58,10 +59,9 @@ namespace Assets.Scripts
 
         private void GameOver()
         {
-            foreach (var button in Buttons)
-            {
-                button.GetComponent<Animator>().SetBool("Run", true);
-            }
+            gameObject.SetActive(false); // hide board
+            GameOverText.text = $"{CurrentMove} WON";
+            GameOverOverlay.SetActive(true); // show game over overlay
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Assets.Scripts
         /// <returns></returns>
         private bool CheckVertical()
         {
-            for (int i = 0; i < _currenMoves.GetLength(0); i++)
+            for (int i = 0; i < _currenMoves.GetLength(1); i++)
                 if (CheckVertical(0, i))
                     return true;
 
